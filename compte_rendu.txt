@@ -1,0 +1,94 @@
+																													Les structures:
+
+ 1. la structure Grille:
+		elle contient deux entiers n et m n pour les lignes et m pour les colonnes.
+		un tableau a deux dimensions de type caractere.
+		les coordonnées du fruit que le serpent doit manger x et y.
+
+ 2. la structure Section :
+    elle contient deux entiers taille et couleur 
+    un pointeur suivant vers Section
+    
+ 3. la structure Liste :
+    elle contient deux pointeurs premier et dernier vers Section 
+    un entier longueur   
+    
+ 4. la structure Serpent: 
+    elle contient deux entiers n et m (pour les lignes et les colonnes)
+    un pointeur vers case Liste (qui contient deux pointeurs un vers la premiere section de la liste un autre vers le derniere section et un entier qui represente la nombre de sections la liste)
+    un pointeur vers Liste_Mouvement (qui contient deux pointeurs un vers la premiere case de la liste un autre vers le derniere case et un   entier qui represente la tongueur de la liste )
+     
+    
+  5. la structure Case:
+     elle contient deux entiers x et y qui sont les coordonnees de la case 
+     un pointuer suivant vers Case Un pointeur suivant vers la case suivante dans la liste permettant ainsi de créer une liste chaînée de cases 
+     Une direction sens de type enum Direction indiquant la direction du mouvement à partir de cette case 
+     
+                                                         Les fonctions :
+                                                         
+         																					  Les fonctions de Grille:                                                   
+
+struct Grille *Grille_allouer(int n, int m): cette fonction prends en entree les lignes et les colonnes de la grille et alloue de l'espace pour cette grille de dimensions n x m.
+
+void Grille_vider(struct Grille *g): cette fonction prends en entree la grille et remplit ses cases en noir
+
+void Grille_tirage_fruit(struct Grille *g):cette fonction place le fruit de maniere aleatoire dans la grille
+
+void Grille_remplir_rouge(struct Grille *g, int x, int y):cette fonction affiche le fuit dans la grille
+
+void Grille_desallouer(struct Grille **g):desallouer l'espace allouee.
+
+void Grille_redessiner(struct Grille *g): cette fonction commence par effacer l'ecran et replace le curseur en haut a gauche ensuite dessine la bordure sup en gris fait un saut de ligne ensuite dessine les bordure laterales en commancant par celle de droite ensuite celle de gauche ensuite la bordure du bas
+
+void Grille_remplir_couleur(struct Grille *g, int x, int y, int couleur): cette fonction remplit le fruit cest a dire colorie le fruit .
+
+void Grille_remplir_serp(struct Grille *g, struct Serpent *serp, enum Direction sens):Cette fonction parcourt toutes les sections du serpent, remplit la grille avec les couleurs correspondantes aux sections, et met à jour la direction du serpent en fonction des cases de mouvement spécifiques rencontrées.La fonction appelle Grille_remplir_couleur() pour remplir la grille avec la couleur de la section du serpent à la position actuelle.
+
+
+        
+                                                  Les fonctions de liste_Section :
+
+struct Section * creer_section(int taille, int couleur): cette fonction prennds en entree une taille et une couleur elle aloue de lespace pour une section et linitialise avec la taille la couleur et le pointeur suivant a null et retourne cette section
+
+void desalouer_section(struct Section ** s): cette fonction recoit en entree un pointeur vers un tableau de pointeurs de type Section . elle desalloue lespace memoire dune section
+
+struct Liste * creer_liste(): cette fonction alloue de lespace pour une liste et initialise ces parametres a NULL ou 0 et retourne cette liste
+
+int est_vide(struct Liste * l): cette fonction prends en entree une liste et verifie si elle est vide et retourne vrai si la liste est vide ou faux sinon
+
+void ajout_debut_liste(struct Liste * l, struct Section * s):cette fonction prends en entree une liste et une section et ajoute la section au debut de la liste
+
+void ajout_fin_liste(struct Liste * l, struct Section * s):cette fonction prends en entree une liste et une section et ajoute la section a la fin de la liste
+
+struct Section * extraire_section(struct Liste * l): cette fonction extrait la premiere section de la liste et la retourne 
+
+void desalouer_liste(struct Liste ** l): cette fonction recoit en entree un pointeur vers un tableau de pointeurs de type Liste . elle desalloue lespace memoire dune liste 
+  
+  
+  																				Les fonctions de Serpent:
+  
+  struct Serpent * creer_serpent(int n, int m):prends en entree deux entiers qui represente les dimensions de la grille elle alloue de lespace pour un serpent et linitialise au milieu de la grille et initialise les attributs de la liste du serpent a 0 et cree une nouvelle section de taille 1 et lajoute au debut du serpent et initialise le mouvement a NULL 
+   
+   
+   																				Les fonctions de liste_Mouvement:
+   
+   	struct Case * creer_case(int x, int y, enum Direction sens): prends en entree deux entiers qui un enum direction qui represente le sens . elle alloue de la memoire pour une case et initialises ses attributs avec les entree et le pointeur suivant a NULL et retourne un pointeur vers cette case 
+   	
+   	void desalouer_case(struct Case ** c): cette fonction recoit en entree un pointeur vers un tableau de pointeurs de type Case . elle desalloue lespace memoire dune case
+   	
+   	struct Liste_Mouvement * creer_liste_mouvement(): cette fonction alloue de lespace pour une liste mouvement et initialise ces attributs a NULL ou 0 et la renvoie
+   	
+   	int est_vide_lm(struct Liste_Mouvement * lm): cette fonction verifie seuelement si une liste de mouvement est vide et retourne 1 si c4est le cas et 0 sinon
+   	
+   	void ajout_debut_liste_mouvement(struct Liste_Mouvement * lm, struct Case * c):cette fonction prends en entree une liste_Mouvement et une Case et ajoute cette Case au debut de la liste_Mouvement
+   	
+   	void ajout_fin_liste_mouvement(struct Liste_Mouvement * lm, struct Case * c):cette fonction prends en entree une liste_Mouvement et une Case et ajoute cette Case a la fin de la liste_Mouvement
+   
+   struct Case * extraire_case(struct Liste_Mouvement * lm): cette fonction extrait la premiere case de la liste et la retourne
+   
+   void desalouer_liste_mouvement(struct Liste_Mouvement ** lm): desaloue lespace memoire reservee a une liste
+  
+  																									Fonction_Jeu
+   
+   void Jouer_Serpent(struct Grille * g, struct Serpent * serp, int delai): cette fonction contient la boucle principale du jeu cest a dire que tant que on clique pas sur la touche a le jeu continue et met a jour la direction du serpent a chaque fois qu'un des boutons haut bas gauche ou droite est presse .Par la suite les coordonnees du serpent sont mis a jour on a aussi ajoute une condition pour verifier si le serpent touche la bordure de la grille si cest le cas on perd et une autre condition pour la colision avec le fruit si il rentre en colision avec le fruit les coordonnes du serpents et sa couleur sont mis a jour ensuite on a mis a jour la grille pour assurer le bon affichage de la grille .
+  

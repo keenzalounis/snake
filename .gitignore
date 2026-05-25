@@ -1,0 +1,8 @@
+*.o
+exec
+projet
+snike
+*.exe
+.vscode/
+.idea/
+
