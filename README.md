@@ -1,8 +1,8 @@
-# Snike
+# Snake
 
 **Projet realise par Kenza Lounis**
 
-Snike est un jeu de type Snake developpe en langage C avec la bibliotheque `ncurses`. Le projet met en pratique la programmation modulaire, la manipulation de structures, les listes chainees, la gestion dynamique de la memoire et l'affichage terminal.
+snake est un jeu de type Snake developpe en langage C avec la bibliotheque `ncurses`. Le projet met en pratique la programmation modulaire, la manipulation de structures, les listes chainees, la gestion dynamique de la memoire et l'affichage terminal.
 
 ## Objectif
 
@@ -41,13 +41,13 @@ make
 ## Execution
 
 ```bash
-./snike <lignes> <colonnes> <delai>
+./snake <lignes> <colonnes> <delai>
 ```
 
 Exemple :
 
 ```bash
-./snike 20 40 100
+./snake 20 40 100
 ```
 
 ## Nettoyage
