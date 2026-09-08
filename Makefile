@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -pedantic -std=c99
 LDFLAGS = -lncurses
-TARGET = snike
+TARGET = snake
 OBJ = liste_Mouvement.o liste_Section.o Serpent.o Grille.o Fonction_Jeu_1_Serpent.o main.o
 
 all: $(TARGET)
